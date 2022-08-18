@@ -4,10 +4,10 @@ import { Form } from '../entity/form';
 import { AddFormTable1653413416252 } from '../migration/1653413416252-AddFormTable';
 
 export default new DataSource({
-  name: 'opConnection',
+  name: 'exampleConnection',
   type: 'capacitor',
   driver: sqliteConnection,
-  database: 'openpages-offline',
+  database: 'example',
   entities: [
     Form,
   ],

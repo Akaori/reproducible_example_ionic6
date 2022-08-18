@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, getCurrentInstance } from "vue";
 import {
   IonContent,
   IonButtons,
@@ -50,6 +50,8 @@ export default defineComponent({
 
     const forms = ref<any>([]);
 
+    const app = getCurrentInstance();
+
     const createForm = () => {
       router.push('/form-templates');
     };
@@ -57,9 +59,18 @@ export default defineComponent({
     onIonViewWillEnter(async () => {
       console.log('ION VIEW WILL ENTER')
 
-      const formRepository = UserDataSource.getRepository(Form);
-      forms.value = await formRepository.find();
+      if(app != null) {
+        const platform = app.appContext.config.globalProperties.$platform;
+        const sqlite= app.appContext.config.globalProperties.$sqlite;
 
+        const database = UserDataSource.options.database;
+        const formRepository = UserDataSource.getRepository(Form);
+        forms.value = await formRepository.find();
+
+        if(platform === 'web') {
+					await sqlite.saveToStore(database);
+				}
+      } 
       console.log('FORMS', forms.value)
     })
 

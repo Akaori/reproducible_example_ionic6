@@ -41,7 +41,7 @@ import {
   useIonRouter,
   onIonViewWillLeave,
 } from "@ionic/vue";
-import { ref, defineComponent } from 'vue'
+import { ref, defineComponent, getCurrentInstance } from 'vue'
 import UserDataSource from '../data-sources/FormDataSource';
 import { Form } from '../entity/form';
 
@@ -64,18 +64,31 @@ export default defineComponent({
 
     const formName = ref('');
 
+    const app = getCurrentInstance();
+
     const create = async () => {
-      const formRepository = UserDataSource.getRepository(Form);
 
-      if (formName.value) {
-        const newForm = new Form();
-        newForm.name = formName.value;
-        const id = (await formRepository.save(newForm)).id
+      if(app != null) {
+        const platform = app.appContext.config.globalProperties.$platform;
+        const sqlite= app.appContext.config.globalProperties.$sqlite;
+        const database = UserDataSource.options.database;
+        const formRepository = UserDataSource.getRepository(Form);
 
-        console.log('ID', id)
+        if (formName.value) {
+          const newForm = new Form();
+          newForm.name = formName.value;
+          const id = (await formRepository.save(newForm)).id
 
-        router.push('/tabs/home');
+          console.log('ID', id)
+
+          if(platform === 'web') {
+            await sqlite.saveToStore(database);
+          }
+
+          router.push('/tabs/home');
+        }
       }
+      
     };
 
     onIonViewWillLeave(() => {

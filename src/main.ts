@@ -79,7 +79,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
     if (platform === 'web') {
       // save the database from memory to store
-      await sqliteConnection.saveToStore('forms');
+      await sqliteConnection.saveToStore('example');
     }
 
     router.isReady().then(() => {
