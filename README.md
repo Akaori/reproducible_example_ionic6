@@ -14,7 +14,7 @@ git clone https://github.com/Akaori/reproducible_example_ionic6.git
 npm install
 sudo ionic build
 sudo npx cap sync
-sudo npm cap copy
+sudo npx cap copy
 sudo npx cap open android
 ```
 
