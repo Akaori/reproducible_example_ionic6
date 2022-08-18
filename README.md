@@ -4,6 +4,7 @@
 
 ```
 git clone https://github.com/Akaori/reproducible_example_ionic6.git
+
 ```
 
 
@@ -11,6 +12,7 @@ git clone https://github.com/Akaori/reproducible_example_ionic6.git
 
 
 ```
+cd reproducible_example_ionic6
 npm install
 sudo ionic build
 sudo npx cap sync
