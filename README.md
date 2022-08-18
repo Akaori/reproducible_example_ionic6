@@ -40,7 +40,7 @@ sudo npx cap open android
 
 5. After this, you'll be redirected to the home page, where it should contain a list of the created forms.
 
-![image](images/forms_list.png.png)
+![image](images/forms_list.png)
 
 6. The first created form is listed correctly, but the following ones, are not listed. It's necessary to change the tab (`Tab 1 -> Tab 2 -> Tab 1`) to get the correct list of forms.
 
